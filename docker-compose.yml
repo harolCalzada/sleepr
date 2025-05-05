@@ -1,5 +1,15 @@
 version: '3'
 services:
+  reservations:
+    build:
+      context: .
+      dockerfile: ./apps/reservations/Dockerfile
+      target: development
+    command: pnpm run start:dev reservations
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
   mongo:
     image: mongo
     container_name: sleepr
