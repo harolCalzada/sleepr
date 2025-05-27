@@ -36,11 +36,19 @@ services:
       - '3003:3003'
     volumes:
       - .:/usr/src/app
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    command: pnpm run start:dev notifications
+    env_file:
+      - ./apps/notifications/.env
+    volumes:
+      - .:/usr/src/app
   mongo:
     image: mongo
     container_name: sleepr
-    ports:
-      - 27017:27017
     volumes:
       - ./data:/data/db
     environment:
